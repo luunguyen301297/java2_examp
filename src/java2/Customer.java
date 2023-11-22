@@ -27,13 +27,7 @@ public class Customer implements IKeyMap{
     System.out.println("Enter name :");
     while (true) {
       if (setName(scanner.nextLine())) {
-        boolean isExist = MenuController.getInstance().checkExist(
-          DataManager.getInstance().getCustomerList().keySet(), getName());
-        if(isExist) {
-          System.err.println("Key name already exists, try again !");
-        } else {
-          break;
-        }
+        break;
       }
     }
 
@@ -57,7 +51,14 @@ public class Customer implements IKeyMap{
   public boolean setName(String name) {
     if (name != "" && name.matches("^[a-zA-Z]")) {
       this.name = name;
-      return true;
+      boolean isExist = MenuController.getInstance().checkExist(
+        DataManager.getInstance().getCustomerList().keySet(), getName());
+      if(isExist) {
+        System.err.println("Key name already exists, try again !");
+        return false;
+      } else {
+        return true;
+      }
     } else {
       System.err.println("Incorrect name format");
       System.out.println("Try again :");
