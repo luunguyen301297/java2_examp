@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @mailto : luunguyen301297@gmail.com
  * @created : 11/21/2023, Tuesday
  **/
-public class Customer {
+public class Customer implements IKeyMap{
   private int autoIncrement;
   private int id;
   private String name, email, tell;
@@ -26,11 +26,23 @@ public class Customer {
     Scanner scanner = new Scanner(System.in);
     System.out.println("Enter name :");
     while (true) {
-      if (setName(scanner.nextLine()))
+      if (setName(scanner.nextLine())) {
+        boolean isExist = MenuController.getInstance().checkExist(
+          DataManager.getInstance().getCustomerList().keySet(), getName());
+        if(isExist) {
+          System.err.println("Key name already exists, try again !");
+        } else {
+          break;
+        }
+      }
+    }
+
+    System.out.println("Enter email :");
+    while (true) {
+      if (setEmail(scanner.nextLine()))
         break;
     }
-    System.out.println("Enter email :");
-    email = scanner.nextLine();
+
     System.out.println("Enter tell :");
     while (true) {
       if (setTell(scanner.nextLine()))
@@ -43,7 +55,7 @@ public class Customer {
   }
 
   public boolean setName(String name) {
-    if (name != "" && name.matches("^[a-zA-Z]*$")) {
+    if (name != "" && name.matches("^[a-zA-Z]")) {
       this.name = name;
       return true;
     } else {
@@ -57,20 +69,18 @@ public class Customer {
     return email;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public boolean setEmail(String email) {
+    if (email != "" && email.matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
+      this.email = email;
+      return true;
+    } else {
+      System.err.println("Incorrect email format");
+      System.out.println("Try again :");
+      return false;
+    }
   }
 
   public String getTell() {
-    // TODO: đoạn này e comment để lúc nhập null vẫn nhận ạ :))
-//    if (phoneNumber != null && phoneNumber.length() == 7 && phoneNumber.matches("[0-9]+")) {
-//      this.phoneNumber = phoneNumber;
-//      return true;
-//    } else {
-//      System.err.println("The phone number must have 7 digits !");
-//      System.out.println("Try again :");
-//      return false;
-//    }
     return tell;
   }
 
@@ -92,5 +102,10 @@ public class Customer {
       ", email='" + email + '\'' +
       ", tell='" + tell + '\'' +
       '}';
+  }
+
+  @Override
+  public String getKeyValue() {
+    return name;
   }
 }
