@@ -60,8 +60,7 @@ public class Customer implements IKeyMap{
         return true;
       }
     } else {
-      System.err.println("Incorrect name format");
-      System.out.println("Try again :");
+      System.err.println("Incorrect name format, try again :");
       return false;
     }
   }
@@ -75,8 +74,7 @@ public class Customer implements IKeyMap{
       this.email = email;
       return true;
     } else {
-      System.err.println("Incorrect email format");
-      System.out.println("Try again :");
+      System.err.println("Incorrect email format, try again :");
       return false;
     }
   }
@@ -90,8 +88,7 @@ public class Customer implements IKeyMap{
       this.tell = tell;
       return true;
     } else {
-      System.err.println("The phone number must have 7 digits !");
-      System.out.println("Try again :");
+      System.err.println("The phone number must have 7 digits, try again :");
       return false;
     }
   }

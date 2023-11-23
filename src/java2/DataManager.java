@@ -10,7 +10,7 @@ import java.util.Map;
  **/
 public class DataManager {
   private static DataManager instance = null;
-  Map<String, Customer> customerList;
+  private Map<String, Customer> customerList;
 
   private DataManager() {
     customerList = new HashMap<>();
